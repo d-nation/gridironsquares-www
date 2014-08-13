@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    var SquaresGameController = function($scope, SquaresGameFactory, FootballGameFactory, currentUser) {
+    var SquaresGameController = function($scope, SquaresGameFactory, FootballGameFactory) {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
                  .toString(16)
@@ -261,7 +261,7 @@
 
     };
 
-    SquaresGameController.$inject = ["$scope", "SquaresGameFactory", "FootballGameFactory", "currentUser"];
+    SquaresGameController.$inject = ["$scope", "SquaresGameFactory", "FootballGameFactory"];
 
     angular.module("squaresGame").controller("SquaresGameController", SquaresGameController);
 })();

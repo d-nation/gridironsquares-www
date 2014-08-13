@@ -24,7 +24,8 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">My Account</a></li>
-            <li><a href="#" ng-click="clicked">Login</a></li>
+            <li><a ng-click="auth.$login('google')" ng-hide="auth.user">Login</a></li>
+            <li><a ng-click="auth.$logout()" ng-show="auth.user">Logout</a></li>
             <li><a href="#">Help</a></li>
           </ul>
         </div>
@@ -32,23 +33,7 @@
     </div>
     <section id="wrapper" class="container-fluid" ng-view>
     </section>
-<!--<div id="header" class="navbar-fixed-top">
-    <div class="header-sep">
-        <a href="#/" class="glyphicon glyphicon-th"></a>
-    </div>
-    <div class="header-sep">
-        <a class="glyphicon glyphicon-cog" href="#/settings"></a>
-    </div>
-    <div class="header-sep">
-        <a href="#/buyins"  class="glyphicon glyphicon-list"></a>
-    </div>
-    <div class="header-sep">
-        <a href="#/winnings" class="glyphicon glyphicon-usd"></a>
-    </div>
-    <div class="header-sep">
-        <a href="help.html" class="glyphicon glyphicon-question-sign"></a>
-    </div>
-</div>-->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="components/bootstrap/js/bootstrap.min.js"></script>
 <script src="components/angular/angular.js"></script>

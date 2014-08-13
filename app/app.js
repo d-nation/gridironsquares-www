@@ -7,7 +7,7 @@
         $routeProvider
             .when("/", {
                 controller: "SquaresGameController",
-                templateUrl: "app/views/main.html",
+                templateUrl: "app/views/main.html"/*,
                 resolve: {
                     // controller will not be invoked until getCurrentUser resolves
                     "currentUser": ["simpleLogin", function(simpleLogin) {
@@ -17,7 +17,7 @@
                         // loading
                         return simpleLogin.$getCurrentUser();
                     }]
-                }
+                }*/
             })
             .when("/settings", {
                 controller: "SettingsController",
