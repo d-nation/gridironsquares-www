@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="squaresGame">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/gridBoard.css">
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+<body  ng-controller="AuthController">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Grid Iron Squares</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">My Account</a></li>
+            <li><a href="#" ng-click="clicked">Login</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <section id="wrapper" class="container-fluid" ng-view>
+    </section>
+<!--<div id="header" class="navbar-fixed-top">
+    <div class="header-sep">
+        <a href="#/" class="glyphicon glyphicon-th"></a>
+    </div>
+    <div class="header-sep">
+        <a class="glyphicon glyphicon-cog" href="#/settings"></a>
+    </div>
+    <div class="header-sep">
+        <a href="#/buyins"  class="glyphicon glyphicon-list"></a>
+    </div>
+    <div class="header-sep">
+        <a href="#/winnings" class="glyphicon glyphicon-usd"></a>
+    </div>
+    <div class="header-sep">
+        <a href="help.html" class="glyphicon glyphicon-question-sign"></a>
+    </div>
+</div>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="components/bootstrap/js/bootstrap.min.js"></script>
+<script src="components/angular/angular.js"></script>
+<script src="components/angular/angular-route.js"></script>
+<script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+<script src="https://cdn.firebase.com/js/simple-login/1.6.2/firebase-simple-login.js"></script>
+
+<script src="app/app.js"></script>
+<script src="app/factories/squaresGameFactory.js"></script>
+<script src="app/factories/footballGameFactory.js"></script>
+<script src="app/controllers/authController.js"></script>
+<script src="app/controllers/squaresGameController.js"></script>
+<script src="app/controllers/settingsController.js"></script>
+<script src="app/controllers/buyInsController.js"></script>
+<script src="app/controllers/winningsController.js"></script>
+
+</body>
+</html>

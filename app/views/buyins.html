@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th class="buy-in-squares">Squares</th>
+            <th class="buy-in-cell">Buy In</th>
+            <th class="buy-in-paid">Paid</th>
+            <th class="buy-in-owed">Owed</th>
+            <th class="buy-in-paid">Paid In Full</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="person in currentSqGame.paidIn track by $index">
+            <td class="owner-name">{{ person.buyer }}</td>
+            <td class="buy-in-squares">{{ person.squares }}</td>
+            <td class="buy-in-cell">{{ getBuyIn(person) | currency }}</td>
+            <td class="buy-in-paid">
+                <label>$</label>
+                <input name="paid" type="number" ng-model="person.paid" ng-change="onPaidChange(person)" min="0" step=".25"/>
+            </td>
+            <td class="buy-in-cell">{{ getOwed(person) | currency }}</td>
+            <td class="buy-in-paid-in-full">
+                <i class="glyphicon glyphicon-thumbs-down" ng-show="!person.paidInFull" ng-click="onPaidFullClick(person)"></i>
+                <i class="glyphicon glyphicon-thumbs-up" ng-show="person.paidInFull"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>

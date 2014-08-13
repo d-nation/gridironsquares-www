@@ -1,0 +1,43 @@
+<form id="settings-sq-price-form" class="form-horizontal" role="form">
+    <h3>General</h3>
+    <div class="form-group form-group-lg">
+        <label for="pps-input" class="col-sm-2 control-label">Square Price</label>
+        <div class="col-sm-2">
+            <input type="number" id="pps-input" class="form-control" ng-model="currentSqGame.settings.pps" min="0" step=".25"/>
+        </div>
+    </div>
+</form>
+<form class="form-horizontal" role="form">
+    <h3>Winning %</h3>
+    <div class="form-group form-group-lg">
+        <label for="pps-input" class="col-sm-2 control-label">1st Quarter</label>
+        <div class="col-sm-2">
+            <input type="number" id="first-weight" class="form-control quarter-percent-input" ng-model="currentSqGame.settings.winningPercent[0]" ng-change="calcTotalPercent()">
+        </div>
+    </div>
+    <div class="form-group form-group-lg">
+        <label for="pps-input" class="col-sm-2 control-label">2nd Quarter</label>
+        <div class="col-xs-3 col-sm-2">
+            <input type="number" id="second-weight" class="form-control quarter-percent-input" ng-model="currentSqGame.settings.winningPercent[1]" ng-change="calcTotalPercent()">
+        </div>
+    </div>
+    <div class="form-group form-group-lg">
+        <label for="pps-input" class="col-sm-2 control-label">3rd Quarter</label>
+        <div class="col-sm-2">
+            <input type="number" id="third-weight" class="form-control quarter-percent-input" ng-model="currentSqGame.settings.winningPercent[2]" ng-change="calcTotalPercent()">
+        </div>
+    </div>
+    <div class="form-group form-group-lg">
+        <label for="fourth-weight" class="col-sm-2 control-label">4th Quarter</label>
+        <div class="col-sm-2">
+            <input type="number" id="fourth-weight" class="form-control quarter-percent-input" ng-model="currentSqGame.settings.winningPercent[3]" ng-change="calcTotalPercent()">
+        </div>
+    </div>
+    {{ tooMuchWinnings }}
+    <div id="winning-percent-warnings" class="col-xs-offset-3 col-sm-offset-4 col-xs-6 col-sm-4 alert alert-danger" ng-show="invalidWinningPercent">Winnings do not total 100%</div>
+
+    <div id="settings-btn-container">
+        <button type="button" id="randomize-btn" class="btn btn-primary btn-lg" ng-click="randomizeGrid()" ng-disabled="currentSqGame.settings.isRandomized">Randomize Grid</button>
+        <button type="button" id="reset-btn" class="btn btn-danger btn-lg" ng-click="resetGame(); calcTotalPercent();">Reset Game</button>
+    </div>
+</form>

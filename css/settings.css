@@ -1,0 +1,27 @@
+#settings{
+    width: 100%;
+}
+#save-help{
+    text-align: center;
+}
+
+#randomize-btn{
+    margin-top: 5px;
+    /*width: 90%;*/
+    /*margin-left: 5%;*/
+}
+
+#reset-btn{
+    /*width: 90%;*/
+    /*margin-left: 5%;*/
+    vertical-align: bottom;
+}
+
+.form-horizontal .form-group{
+    margin-right: 0;
+    margin-left: 0;
+}
+
+#settings-sq-price-form {
+    margin-top: 40px;
+}

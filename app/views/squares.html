@@ -1,0 +1,56 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Team</th>
+            <th>1st</th>
+            <th>2nd</th>
+            <th>3rd</th>
+            <th>4th</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="team in footballGame.teams" >
+            <td>{{ team.name }}</td>
+            <td>{{ team.quarterScores[0] }}</td>
+            <td>{{ team.quarterScores[1] }}</td>
+            <td>{{ team.quarterScores[2] }}</td>
+            <td>{{ team.quarterScores[3] }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="squares-area" ng-show="!!currentSqGame.columns">
+    <div id="team-label-top">{{ footballGame.teams.away.name }}</div>
+    <div id="table-area-main">
+        <div id="team-label-left-container">
+            <div id="team-label-left">{{ footballGame.teams.home.name }}</div>
+        </div>
+
+        <div id="grid-container">
+            <table class="table">
+                <thead>
+                    <tr >
+                        <th></th>
+                        <th ng-repeat="column in currentSqGame.columns track by $index">{{ column.scoreDigit }}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="row in currentSqGame.rows track by $index">
+                        <th>{{ row.scoreDigit }}</th>
+                        <td ng-repeat="col in row.columns track by $index">
+                            <span ng-show="col.owner">{{ col.owner }}</span>
+                            <div class="quarter-winners-badges">
+                                <span class="quarter-winners-badge badge" ng-show="col.winningQuarters[0]">1</span>
+                                <span class="quarter-winners-badge badge" ng-show="col.winningQuarters[1]">2</span>
+                                <span class="quarter-winners-badge badge" ng-show="col.winningQuarters[2]">3</span>
+                                <span class="quarter-winners-badge badge" ng-show="col.winningQuarters[3]">F</span>
+                            </div>
+                            <button class="btn btn-success" ng-show="!col.owner" ng-click="col.owner=user;buySquare();">${{ currentSqGame.settings.pps }}</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

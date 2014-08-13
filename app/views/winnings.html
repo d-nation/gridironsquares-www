@@ -1,0 +1,21 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Qtr</th>
+            <th>Name</th>
+            <th class="winnings-amt">Won</th>
+            <th class="winnings-paid">Paid</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="quarter in currentSqGame.paidOut track by $index">
+            <td class="winnings-qtr">{{ quarter.quarter }}</td>
+            <td class="owner-name">{{ quarter.owner }}</td>
+            <td class="winnings-cell">{{ quarter.winnings | currency }}</td>
+            <td class="winnings-paid">
+                <i class="glyphicon glyphicon-thumbs-down" ng-show="!quarter.paid" ng-click="onPaidWinningsClick(quarter)"></i>
+                <i class="glyphicon glyphicon-thumbs-up" ng-show="quarter.paid" ng-click="onPaidWinningsClick(quarter)"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>

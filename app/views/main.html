@@ -1,0 +1,20 @@
+
+<div class="row">
+    <aside class="col-sm-3 col-md-2 sidebar">
+        <div class="side-header">
+            <h2 id="brand" class="brand">My Games</h2>
+        </div>
+        <div class="side-body">
+        </div>
+    </aside>
+    <section id="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <header class="content-header">
+            <span class="glyphicon glyphicon-th" ng-click="setTemplate('squares')"></span>
+            <span class="glyphicon glyphicon-cog" ng-click="setTemplate('settings')" ng-show="isOwner"></span>
+            <span class="glyphicon glyphicon-list" ng-click="setTemplate('buyins')" ng-show="isOwner"></span>
+            <span class="glyphicon glyphicon-usd" ng-click="setTemplate('winnings')" ng-show="isOwner"></span>
+        </header>
+        <!--Main App-->
+        <section id="main-body" ng-include="template.url"></section>
+    </section>
+</div>
