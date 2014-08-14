@@ -5,7 +5,7 @@
         var ref, sync, syncObj, id,
             game = {},
             defaultGame = {
-                "owner": "Dustin",
+                "owner": "google:100139053569908199597",
                 "settings": {
                     pps: 5,
                     winningPercent: [25,25,25,25],

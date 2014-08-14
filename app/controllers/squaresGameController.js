@@ -35,11 +35,9 @@
         SquaresGameFactory.getGame("123").$bindTo($scope, "currentSqGame");
 
         SquaresGameFactory.getGame("123").$loaded(function(){
-            $scope.isOwner = $scope.user === $scope.currentSqGame.owner;
+            $scope.isOwner = $scope.auth.user.uid === $scope.currentSqGame.owner;
             FootballGameFactory.getGame("nfl", "167234").$bindTo($scope, "footballGame");
-//            FootballGameFactory.getGame("nfl", "167234").$loaded(function(){
-//
-//            });
+
             buyInInit();
             winningsInit();
             $scope.$watch("currentSqGame.settings.pps", buyInInit);
@@ -50,8 +48,6 @@
         $scope.resetGame = function(){
             $scope.currentSqGame = angular.copy(angular.extend(SquaresGameFactory.getDefault(), {$id: $scope.currentSqGame.$id}));
         };
-
-        $scope.user = "Dustin";
 
         $scope.visibleSections = {
             settings: false,
@@ -72,17 +68,24 @@
                 buyers = $scope.currentSqGame.paidIn,
                 currentBuyer = false;
 
+            //If the paid in array is there
             if (!!buyers) {
+
+                //Find the current user in the paidIn buyers list
                 for (i=0; i<buyers.length; i+=1){
-                    if (buyers[i].buyer === $scope.user) {
+
+                    console.log(buyers[i].buyer.uid)
+                    //if this is not their first square purchase
+                    if (buyers[i].buyer.uid === $scope.buyerObj.uid) {
                         buyers[i].squares += 1;
                         currentBuyer = true;
                     }
                 }
 
+                //if this is their first square purchase
                 if (!buyers || !currentBuyer) {
                     buyers.push({
-                        "buyer": $scope.user,
+                        "buyer": $scope.buyerObj,
                         "squares": 1,
                         "paid": 0,
                         "paidInFull": false
@@ -90,10 +93,10 @@
                 }
             }
 
-
+            //If the paid in array isn't there
             if (!buyers) {
                 $scope.currentSqGame.paidIn= [{
-                    "buyer": $scope.user,
+                    "buyer": $scope.buyerObj,
                     "squares": 1,
                     "paid": 0,
                     "paidInFull": false

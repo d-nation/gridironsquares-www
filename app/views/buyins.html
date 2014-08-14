@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="person in currentSqGame.paidIn track by $index">
-            <td class="owner-name">{{ person.buyer }}</td>
+            <td class="owner-name">{{ person.buyer.displayName }}</td>
             <td class="buy-in-squares">{{ person.squares }}</td>
             <td class="buy-in-cell">{{ getBuyIn(person) | currency }}</td>
             <td class="buy-in-paid">

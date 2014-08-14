@@ -29,11 +29,12 @@
 
 #team-label-left-container{
     height: 100%;
-    display: inline-block;
+    /*display: inline-block;*/
     position: relative;
     vertical-align: middle;
     font-weight: bold;
     width: 24px;
+    top: 250px;
 }
 
 #team-label-left{
@@ -60,6 +61,10 @@
     display: inline-block;
     vertical-align: middle;
     width: 100%;
+}
+
+#grid-container table{
+    margin-bottom: 0px;
 }
 
 #grid-container th{

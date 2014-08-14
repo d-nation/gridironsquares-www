@@ -39,14 +39,14 @@
                     <tr ng-repeat="row in currentSqGame.rows track by $index">
                         <th>{{ row.scoreDigit }}</th>
                         <td ng-repeat="col in row.columns track by $index">
-                            <span ng-show="col.owner">{{ col.owner }}</span>
+                            <span ng-show="col.owner">{{ col.owner.displayName }}</span>
                             <div class="quarter-winners-badges">
                                 <span class="quarter-winners-badge badge" ng-show="col.winningQuarters[0]">1</span>
                                 <span class="quarter-winners-badge badge" ng-show="col.winningQuarters[1]">2</span>
                                 <span class="quarter-winners-badge badge" ng-show="col.winningQuarters[2]">3</span>
                                 <span class="quarter-winners-badge badge" ng-show="col.winningQuarters[3]">F</span>
                             </div>
-                            <button class="btn btn-success" ng-show="!col.owner" ng-click="col.owner=user;buySquare();">${{ currentSqGame.settings.pps }}</button>
+                            <button class="btn btn-success" ng-show="!col.owner" ng-click="col.owner=buyerObj;buySquare();">${{ currentSqGame.settings.pps }}</button>
                         </td>
                     </tr>
                 </tbody>
