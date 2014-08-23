@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    var SquaresGameController = function($scope, SquaresGameFactory, FootballGameFactory) {
+    var SquaresGameController = function($scope, $routeParams, SquaresGameFactory, FootballGameFactory) {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
                  .toString(16)
@@ -14,13 +14,15 @@
         }
 
         $scope.templates = [
+            {name: "sidebar", url: "app/views/myGames.html"},
+            {name: "newGameModal", url: "app/views/newGame.html"},
             {name: "squares", url: "app/views/squares.html"},
             {name: "settings", url: "app/views/settings.html"},
             {name: "buyins", url: "app/views/buyins.html"},
             {name: "winnings", url: "app/views/winnings.html"}
         ];
 
-        $scope.template = $scope.templates[0];
+        $scope.template = $scope.templates[2];
 
         $scope.setTemplate = function(templateName){
             var i;
@@ -32,22 +34,22 @@
             }
         };
 
-        SquaresGameFactory.getGame("123").$bindTo($scope, "currentSqGame");
+        $scope.gameID = SquaresGameFactory.getGameID();
 
-        SquaresGameFactory.getGame("123").$loaded(function(){
-            $scope.isOwner = $scope.auth.user.uid === $scope.currentSqGame.owner;
-            FootballGameFactory.getGame("nfl", "167234").$bindTo($scope, "footballGame");
+        if ($scope.gameID) {
+            SquaresGameFactory.getGame().$bindTo($scope, "currentSqGame");
 
-            buyInInit();
-            winningsInit();
-            $scope.$watch("currentSqGame.settings.pps", buyInInit);
-            $scope.$watch("currentSqGame.settings", winningsInit);
-            $scope.$watch("footballGame.quarter", findWinningSquare);
-        });
+            SquaresGameFactory.getGame().$loaded(function(){
+                $scope.isOwner = $scope.auth.user.uid === $scope.currentSqGame.owner;
+                FootballGameFactory.getGame("nfl", "167234").$bindTo($scope, "footballGame");
 
-        $scope.resetGame = function(){
-            $scope.currentSqGame = angular.copy(angular.extend(SquaresGameFactory.getDefault(), {$id: $scope.currentSqGame.$id}));
-        };
+                buyInInit();
+                winningsInit();
+                $scope.$watch("currentSqGame.settings.pps", buyInInit);
+                $scope.$watch("currentSqGame.settings", winningsInit);
+                $scope.$watch("footballGame.quarter", findWinningSquare);
+            });
+        }
 
         $scope.visibleSections = {
             settings: false,
@@ -74,7 +76,6 @@
                 //Find the current user in the paidIn buyers list
                 for (i=0; i<buyers.length; i+=1){
 
-                    console.log(buyers[i].buyer.uid)
                     //if this is not their first square purchase
                     if (buyers[i].buyer.uid === $scope.buyerObj.uid) {
                         buyers[i].squares += 1;
@@ -192,6 +193,10 @@
             }
         };
 
+        $scope.resetGame = function(){
+            $scope.currentSqGame = angular.copy(angular.extend(SquaresGameFactory.getDefault(), {$id: $scope.currentSqGame.$id}));
+        };
+
         $scope.invalidWinningPercent = false;
 
         $scope.calcTotalPercent = function(){
@@ -262,9 +267,100 @@
             }
         }
 
+        //******************** My Grids functions *****************
+        $scope.footballLeagueList = [];
+        $scope.newLeague = null;
+        $scope.weekList = [];
+        $scope.newWeek = null;
+        $scope.leagueGamesList = [];
+        $scope.newGame = null;
+
+//        FootballGameFactory.getLeagues().$bindTo($scope, "footballLeagues");
+        $scope.footballLeagues = FootballGameFactory.getLeagues();
+
+        //make a list out of leagues
+        FootballGameFactory.getLeagues().$loaded(function(){
+            var leagueName;
+
+            for(leagueName in $scope.footballLeagues) {
+                if (!!$scope.footballLeagues[leagueName] && leagueName.charAt(0) !== "$"){
+                    $scope.footballLeagueList.push($scope.footballLeagues[leagueName]);
+                }
+            }
+        });
+
+        $scope.populateWeekList = function() {
+            var i;
+
+            $scope.weekList = [];
+
+            //shove the weeks into a proper array
+            if ($scope.newLeague) {
+                for (i=0; i<=$scope.newLeague.weeks.length; i+=1) {
+                    if($scope.newLeague.weeks[i]){
+                        $scope.weekList.push($scope.newLeague.weeks[i]);
+                    }
+                }
+            }
+        };
+
+        $scope.getGameList = function() {
+
+            $scope.leagueGamesList = [];
+
+            if ($scope.newWeek) {
+                $scope.leagueGames = FootballGameFactory.getGames($scope.newLeague.name, $scope.newWeek.number);
+
+                FootballGameFactory.getGames($scope.newLeague.name, $scope.newWeek.number).$loaded(function () {
+                    var gameID;
+
+                    for(gameID in $scope.leagueGames) {
+                        if (!!$scope.leagueGames[gameID] && gameID.charAt(0) !== "$"){
+                            $scope.leagueGamesList.push($scope.leagueGames[gameID]);
+                        }
+                    }
+                });
+            }
+        };
+
+        $scope.resetNewGameChoices = function(){
+            $scope.newLeague = null;
+            $scope.weekList = [];
+            $scope.newWeek = null;
+            $scope.leagueGamesList = [];
+            $scope.newGame = null;
+        };
+
+        $scope.createNewGame = function(){
+            var newID = guid();
+            SquaresGameFactory.getGameByID(newID).$bindTo($scope, "newSqGame");
+
+            SquaresGameFactory.getGameByID(newID).$loaded(function(){
+                var customAttrs = {
+                    "$id": newID,
+                    "owner": $scope.auth.user.uid
+                };
+                $scope.newSqGame = angular.copy(angular.extend(SquaresGameFactory.getDefault(), customAttrs));
+            });
+
+            //add Game to myGrids list
+            if (!$scope.userProfile.myGrids) {
+                $scope.userProfile.myGrids = {};
+            }
+
+            //TODO get the football Game ID
+            $scope.userProfile.myGrids[newID] = {
+                displayName: $scope.newGame.displayName,
+                footballGame: {
+                    league: $scope.newLeague,
+                    week: $scope.newWeek,
+                    id: $scope.newGame
+                }
+            };
+        };
     };
 
-    SquaresGameController.$inject = ["$scope", "SquaresGameFactory", "FootballGameFactory"];
+    SquaresGameController.$inject = ["$scope", "$routeParams", "SquaresGameFactory", "FootballGameFactory"];
 
     angular.module("squaresGame").controller("SquaresGameController", SquaresGameController);
 })();

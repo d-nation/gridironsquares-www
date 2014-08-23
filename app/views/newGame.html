@@ -1,0 +1,41 @@
+<div class="modal" id="new-grid-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">New Grid</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="new-game-league-select">League</label>
+                        <select id="new-game-league-select" class="form-control"
+                                ng-model="$parent.newLeague" ng-options="league.displayName for league in footballLeagueList" ng-change="populateWeekList()">
+                            <option value="">-- Select League --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-game-week-select">Week</label>
+                        <select id="new-game-week-select" class="form-control"
+                                ng-model="$parent.newWeek" ng-options="week.displayName for week in weekList" ng-change="getGameList()">
+                            <option value="">-- Select Week --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-game-game-select">Game</label>
+                        <select id="new-game-game-select" class="form-control"
+                                ng-model="$parent.newGame" ng-options="game.displayName for game in leagueGamesList">
+                            <option value="">-- Select Game --</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetNewGameChoices()">Close</button>
+                <button type="button" class="btn btn-primary" ng-disabled="!$parent.newGame" ng-click="createNewGame()">Create Grid</button>
+            </div>
+        </div>
+    </div>
+</div>

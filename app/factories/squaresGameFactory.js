@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    var SquaresGameFactory = function($firebase) {
+    var SquaresGameFactory = function($firebase, $routeParams) {
         var ref, sync, syncObj, id,
             game = {},
             defaultGame = {
@@ -218,8 +218,13 @@
 
                 return $firebase(ref.child("paidIn")).$asObject();
             },
-            getGame: function(gameId){
-                var ref = new Firebase(gamesURL).child(gameId);
+            getGame: function(){
+                var ref = new Firebase(gamesURL).child($routeParams.gameID);
+
+                return $firebase(ref).$asObject();
+            },
+            getGameByID: function(gameID){
+                var ref = new Firebase(gamesURL).child(gameID);
 
                 return $firebase(ref).$asObject();
             },
@@ -228,9 +233,13 @@
             },
             "getDefault": function() {
                 return angular.copy(defaultGame);
+            },
+            "getGameID": function(){
+                return $routeParams.gameID;
             }
         };
     };
+    SquaresGameFactory.$inject = ["$firebase", "$routeParams"];
 
     angular.module("squaresGame").factory("SquaresGameFactory", SquaresGameFactory);
 })();

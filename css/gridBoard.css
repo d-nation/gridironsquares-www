@@ -57,7 +57,6 @@
 
 
 #grid-container{
-    border: 1px solid black;
     display: inline-block;
     vertical-align: middle;
     width: 100%;
@@ -65,12 +64,17 @@
 
 #grid-container table{
     margin-bottom: 0px;
+    /*border: 1px solid black;*/
 }
 
 #grid-container th{
     text-align: center;
-    border-right: 1px solid #dddddd;
-    background-color: #cccccc;
+    /*border-right: 1px solid #dddddd;*/
+    /*background-color: #cccccc;*/
+}
+
+#grid-container td{
+    text-align: center;
 }
 
 #grid-container .zero-zero{

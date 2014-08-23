@@ -10,7 +10,7 @@
     <tbody>
         <tr ng-repeat="quarter in currentSqGame.paidOut track by $index">
             <td class="winnings-qtr">{{ quarter.quarter }}</td>
-            <td class="owner-name">{{ quarter.owner }}</td>
+            <td class="owner-name">{{ quarter.owner.displayName }}</td>
             <td class="winnings-cell">{{ quarter.winnings | currency }}</td>
             <td class="winnings-paid">
                 <i class="glyphicon glyphicon-thumbs-down" ng-show="!quarter.paid" ng-click="onPaidWinningsClick(quarter)"></i>

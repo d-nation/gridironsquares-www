@@ -19,13 +19,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Grid Iron Squares</a>
+          <img id="header-logo" src="images/Icon-preview.png">
+          <a id="header-brand" class="navbar-brand" href="#">Grid Iron Squares</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">My Account</a></li>
-            <li><a ng-click="auth.$login('google')" ng-hide="auth.user">Login</a></li>
-            <li><a ng-click="auth.$logout()" ng-show="auth.user">Logout</a></li>
+            <li><a id="navbar-login" ng-click="auth.$login('google')" ng-hide="auth.user">Login</a></li>
+            <li><a id="navbar-logout" ng-click="auth.$logout()" ng-show="auth.user">Logout</a></li>
             <li><a href="#">Help</a></li>
           </ul>
         </div>

@@ -9,7 +9,6 @@
 
         $scope.$watch("auth.user", function(){
             if ($scope.auth.user) {
-                console.log($scope.auth.user.uid)
                 UserFactory.getUserProfile($scope.auth.user.uid).$bindTo($scope, "userProfile");
 
                 UserFactory.getUserProfile($scope.auth.user.uid).$loaded(

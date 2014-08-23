@@ -1,13 +1,9 @@
 
 <div class="row">
-    <aside class="col-sm-3 col-md-2 sidebar">
-        <div class="side-header">
-            <h2 id="brand" class="brand">My Games</h2>
-        </div>
-        <div class="side-body">
-        </div>
+    <aside class="col-sm-3 col-md-2 sidebar" ng-include="templates[0].url">
+
     </aside>
-    <section id="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <section id="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-show="gameID">
         <header class="content-header">
             <span class="glyphicon glyphicon-th" ng-click="setTemplate('squares')"></span>
             <span class="glyphicon glyphicon-cog" ng-click="setTemplate('settings')" ng-show="isOwner"></span>
@@ -17,4 +13,6 @@
         <!--Main App-->
         <section id="main-body" ng-include="template.url"></section>
     </section>
+
+    <div id="new-grid-modal-container" ng-include="templates[1].url"></div>
 </div>

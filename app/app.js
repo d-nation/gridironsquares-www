@@ -5,7 +5,7 @@
 
     squaresGame.config(function ($routeProvider) {
         $routeProvider
-            .when("/", {
+            .when("/:gameID?", {
                 controller: "SquaresGameController",
                 templateUrl: "app/views/main.html"/*,
                 resolve: {

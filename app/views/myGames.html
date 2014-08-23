@@ -1,0 +1,11 @@
+<div id="side-header">
+    <h2 id="brand" class="brand">My Grids</h2>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#new-grid-modal">New Grid</button>
+</div>
+<div class="side-body">
+    <ul id="sidebar-gridlist" ng-repeat="(id, grid) in userProfile.myGrids">
+        <li class="sidebar-gridlist-item" ng-class="{'sidebar-grid-selected': gameID==id}">
+            <a href="#/{{ id }}">{{ grid.displayName }}</a>
+        </li>
+    </ul>
+</div>
